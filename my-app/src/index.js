@@ -34,7 +34,7 @@ class Board extends React.Component {
   
     handleClick(i) {
         const squares = this.state.squares.slice() // slice()は配列のコピーを生成
-        squares[i] = 'X'
+        squares[i] = this.state.xIsNext ? 'X' : 'O'
         this.setState({
             squares: squares,
             xIsNext: !this.state.xIsNext,
