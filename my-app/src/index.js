@@ -54,6 +54,7 @@ class Game extends React.Component {
             history: [{
                 squares: Array(9).fill(null),
             }],
+            stepNumber: 0,
             xIsNext: true,
         }
     }
@@ -75,15 +76,21 @@ class Game extends React.Component {
             history: history.concat([{
                 squares: squares,
             }]),
-            stepNumber: 0,
+            stepNumber: history.length,
             xIsNext: !this.state.xIsNext,
         })
     }
 
+    jumpTo(step) {
+        this.setState({
+            stepNumber: step,
+            xIsNext: (step % 2) === 0, // 偶数ならX、奇数なOが次の順番になるようにする
+        })
+    }
 
     render() {
         const history = this.state.history;
-        const current = history[history.length - 1] // 最新がカレント
+        const current = history[this.state.stepNumber]
         const winner = calculateWinner(current.squares)
 
         const moves = history.map((step, move) => {
