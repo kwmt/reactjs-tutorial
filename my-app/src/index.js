@@ -38,6 +38,10 @@ class Board extends React.Component {
 
     handleClick(i) {
         const squares = this.state.squares.slice() // slice()は配列のコピーを生成
+        // 勝敗がついたか、すでに盤面に置かれていた場合は状態を更新しない
+        if (calculateWinner(squares) || squares[i]) {
+            return
+        }
         squares[i] = this.getNextPlayer()
         this.setState({
             squares: squares,
