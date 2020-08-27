@@ -31,17 +31,22 @@ class Board extends React.Component {
             />
         );
     }
-  
+
+    getNextPlayer() {
+        return (this.state.xIsNext ? 'X' : 'O')
+    }
+
     handleClick(i) {
         const squares = this.state.squares.slice() // slice()は配列のコピーを生成
-        squares[i] = this.state.xIsNext ? 'X' : 'O'
+        squares[i] = this.getNextPlayer()
         this.setState({
             squares: squares,
             xIsNext: !this.state.xIsNext,
         })
     }
+
     render() {
-      const status = 'Next player: X';
+      const status = 'Next player: ' + this.getNextPlayer();
   
       return (
         <div>
